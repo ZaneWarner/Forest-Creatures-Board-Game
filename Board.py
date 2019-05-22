@@ -1,5 +1,6 @@
 class Board:
-    "Tracks the hex board and its state"
+    #Tracks the hex board and its state
+    #Hex tiles are indexed using an axial coordinate scheme
     def __init__(self, radius):
         self.radius = radius
         self.tiles = {}
