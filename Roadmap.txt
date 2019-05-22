@@ -1,0 +1,10 @@
+A general structure:
+A player class (with an instance for each player) that knows the locations of that player's pieces, 
+	the number of moves that player has for each, how many trees that player has, and their deck object
+	Must differentiate between human and AI players (a crappy AI will hopefully be implemented)
+A deck class (with an instance for each player) that knows the composition of that player's deck, 
+	as well as their hand and discard, and is responsible for drawing, shuffling, and exchanging
+A board class that tracks the locations of pieces and trees and is responsible for detecting groves,
+	owl-squirrel collisions, and nuts that will flourish. 
+An overarching game class that coordinates between these and tracks turns, phases, and cycles
+A pygame GUI 
