@@ -10,7 +10,7 @@ class Deck:
         self.discard = [0]*8
         
     def drawSix(self):
-        #draws six random cards from deck to hand. Assumes deck contains at least 5 cards (a truth the game rules maintain)
+        #draws six random cards from deck to hand. Assumes deck contains at least 6 cards (a truth the game rules maintain)
         deckExpanded = []
         for i in range(7):
             deckExpanded += [i]*self.deck[i]
