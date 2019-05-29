@@ -13,24 +13,30 @@ class Game:
         
     def playGame(self):
         while self.turn < self.maxCycles*3:
-            if self.activePlayer == 1:
-                endPhase = False
-                while not endPhase:
-                    pass
+            self.player1.deck.drawSix()
+            self.player2.deck.drawSix()
+            endPhase = False
+            while not endPhase:
+                pass
                     #for now, autoplay cards on all of these
                     #highlight p1 squirrel
                     #take squirrel moves with mouse
                     #have grab nut/drop nut, end phase buttons
                     #IF AI, instead do AI stuff
-                while not endPhase:
-                    pass
+            endPhase = False
+            while not endPhase:
+                pass
                     #highlight p1 beaver
                     #take beaver moves with mouse
                     #have eat tree, end phase buttons
                     #IF AI, instead do AI stuff
-                while not endPhase:
-                    pass
+            endPhase = False
+            while not endPhase:
+                pass
                     #highlight p1 owl
                     #take owl moves with mouse
                     #have end phase button
-                #DO some exchange thing
+            unexchanged = True
+            while unexchanged:
+                pass
+                    #let player optionally exchange a card from hand

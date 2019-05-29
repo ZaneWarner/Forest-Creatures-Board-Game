@@ -17,12 +17,10 @@ class Board:
                 if abs(r+q) <= radius:
                     self.tiles[(r,q)] = None
         for coord in [(2,0),(-2,2),(0,-2)]:
-            self.tiles[coord] = P1_TREE
-            game.player1.trees += 1
+            self.addTree(coord, player=1)
         for coord in [(0,2),(-2,0),(2,-2)]:
-            self.tiles[coord] = P2_TREE
-            game.player2.trees += 1
-    
+            self.addTree(coord, player=2)
+        
     def neighbors(self, r, q):
         #Returns a list of the neighboring hexes to the hex with given r, q
         neighbors = []
@@ -36,7 +34,13 @@ class Board:
                 + abs(source[0] + source[1] - destination[0] - destination[1])
                 + abs(source[1] - destination[1])) / 2
                 
-    
-        
+    def addTree(self, coord, player):
+        #Adds a tree to the board and updates player tree counts
+        if player == 1:
+            self.tiles[coord] = P1_TREE
+            self.game.player1.trees += 1
+        else:
+            self.tiles[coord] = P2_TREE
+            self.game.player2.trees += 1
     
     
