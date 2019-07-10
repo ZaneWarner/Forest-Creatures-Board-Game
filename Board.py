@@ -1,9 +1,3 @@
-
-P1_TREE = "p1tree"
-P2_TREE = "p2tree"
-P1_FRUITED_TREE = "p1fruitedtree"
-P2_FRUITED_TREE = "p2fruitedtree"
-
 class Board:
     #Tracks the hex board and its state
     #Hex tiles are indexed using an axial coordinate scheme
@@ -16,10 +10,11 @@ class Board:
             for q in range(-radius, radius+1):
                 if abs(r+q) <= radius:
                     self.tiles[(r,q)] = None
-        for coord in [(2,0),(-2,2),(0,-2)]:
-            self.addTree(coord, player=1)
-        for coord in [(0,2),(-2,0),(2,-2)]:
-            self.addTree(coord, player=2)
+        treeForPlayer = 0
+        for coord in [(2,0),(0,2),(-2,2),(-2,0),(0,-2),(2,-2)]:
+            #This assigns the starting trees to players in a fair fashion only for 1, 2, or 3 players // currently only 1 and 2 player games are within the scope of the game rules
+            self.addTree(coord, treeForPlayer)
+            treeForPlayer = (treeForPlayer+1)%len(self.game.players)
         
     def neighbors(self, r, q):
         #Returns a list of the neighboring hexes to the hex with given r, q
@@ -36,11 +31,12 @@ class Board:
                 
     def addTree(self, coord, player):
         #Adds a tree to the board and updates player tree counts
-        if player == 1:
-            self.tiles[coord] = P1_TREE
-            self.game.player1.trees += 1
-        else:
-            self.tiles[coord] = P2_TREE
-            self.game.player2.trees += 1
-    
+        self.tiles[coord] = Tree(player)
+        self.game.players[player].trees += 1
+            
+class Tree:
+    #Represents the trees that can be put on the board
+    def __init__(self, owningPlayer):
+        self.owningPlayer = owningPlayer
+        self.fruited = False
     

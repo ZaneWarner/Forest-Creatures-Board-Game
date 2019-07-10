@@ -3,40 +3,59 @@ from Board import Board
 
 class Game:
     #Manages the flow of the game and the passage of time
-    def __init__(self, cycles=9, player1AI=False, player2AI=True, boardRadius=5):
-        self.player1 = Player(player1AI)
-        self.player2 = Player(player2AI)
+    def __init__(self, cycles=9, playerCount=2, playerTypes=["HUMAN","AI"], boardRadius=5):
+        self.players = []
+        for i in range(playerCount):
+            self.players.append(Player(playerTypes[i]))
         self.board = Board(boardRadius, self)
-        self.turn = 0
+        self.calendar = Calendar()
         self.activePlayer = 1
         self.maxCycles = cycles
         
     def playGame(self):
-        while self.turn < self.maxCycles*3:
-            self.player1.deck.drawSix()
-            self.player2.deck.drawSix()
-            endPhase = False
-            while not endPhase:
+        while self.calendar.day <= self.maxCycles*3:
+            for player in self.players:
+                player.deck.drawSix()
+            while self.calendar.phase == "DAY":
                 pass
                     #for now, autoplay cards on all of these
                     #highlight p1 squirrel
                     #take squirrel moves with mouse
                     #have grab nut/drop nut, end phase buttons
                     #IF AI, instead do AI stuff
-            endPhase = False
-            while not endPhase:
+            self.calendar.advancePhase()
+            while self.calendar.phase == "DUSK":
                 pass
                     #highlight p1 beaver
                     #take beaver moves with mouse
                     #have eat tree, end phase buttons
                     #IF AI, instead do AI stuff
-            endPhase = False
-            while not endPhase:
+            self.calendar.advancePhase()
+            while self.calendar.phase == "NIGHT":
                 pass
                     #highlight p1 owl
                     #take owl moves with mouse
                     #have end phase button
-            unexchanged = True
-            while unexchanged:
+            self.calendar.advancePhase()
+            while self.calendar.phase == "EXCHANGE":
                 pass
                     #let player optionally exchange a card from hand
+            self.calendar.advancePhase()
+                    
+class Calendar:
+    #An object that tracks the passage of time in the game
+    def __init__(self):
+        self.day = 1
+        self.phase = "DAY"
+        
+    def advancePhase(self):
+        #Advances the game's phase and counts when this results in the beginning of a new day
+        if self.phase == "DAY":
+            self.phase = "DUSK"
+        elif self.phase == "DUSK":
+            self.phase = "NIGHT"
+        elif self.phase == "NIGHT":
+            self.phase = "EXCHANGE"
+        elif self.phase == "EXCHANGE":
+            self.phase = "DAY"
+            self.day += 1

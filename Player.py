@@ -5,7 +5,12 @@ class Player:
     #plus the specific squirrel states (eaten and holding nut)
     #And gets their moves
     def __init__(self, playerType):
-        self.AI = playerType #True for AI, else False
+        if playerType == "HUMAN":
+            self.isHuman = 1
+        elif playerType == "AI":
+            self.isHuman = 0
+        else:
+            raise ValueError(playerType)
         self.trees = 0
         self.deck = Deck()
         self.squirrelLocation = None
