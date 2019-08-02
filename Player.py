@@ -11,31 +11,11 @@ class Player:
             self.isHuman = 0
         else:
             raise ValueError(playerType)
-        self.trees = 0
         self.deck = Deck()
-        self.squirrelLocation = None
-        self.beaverLocation = None
-        self.owlLocation = None
+        self.trees = 0
+        self.animalLocations = {"squirrel" : None, "beaver" : None, "owl" : None}
         self.squirrelMoves = 0
         self.beaverMoves = 0
         self.owlMoves = 0
-        self.eaten = False
-        self.hasNut = False
-        
-    def moveSquirrel(self, destination):
-        #Needs the board to compute shortest path
-        #handle commands to plant nuts--can autograb nut when routing through a tree, though make sure shortest path routes intelligently between equivalent paths if so
-        pass
-    
-    def moveBeaver(self, destination):
-        #Needs the board to compute shortest path
-        #handle commands to eat trees
-        pass
-    
-    def moveOwl(self, destination):
-        #Must build graph of tree paths or leave that to the player. Convenient can BFS from owl location
-        pass
-    
-    def chooseReplacement(self):
-        #Route deck replacements though this
-        pass
+        self.squirrelEaten = False
+        self.squirrelHasNut = False
