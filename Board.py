@@ -12,13 +12,16 @@ class Board:
                     self.tiles[(r,q)] = Tile((r,q))
         treeForPlayer = 0
         animalType = "squirrel"
+        counter = 0
         for coord in [(2,0),(0,2),(-2,2),(-2,0),(0,-2),(2,-2)]:
             #This assigns the starting trees to players in a fair fashion only for 1, 2, or 3 players // currently only 1 and 2 player games are within the scope of the game rules
             self.addTree(coord, treeForPlayer)
             if self.game.players[treeForPlayer].animalLocations[animalType] == None:
                 self.moveAnimal(treeForPlayer, coord, animalType)
+            counter += 1
             treeForPlayer = (treeForPlayer+1)%len(self.game.players)
-            if treeForPlayer == 0:
+            if counter >= 1:
+                counter = 0
                 if animalType == "squirrel":
                     animalType = "beaver"
                 elif animalType == "beaver":
