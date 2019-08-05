@@ -1,13 +1,10 @@
 import pygame, sys, math
-import Board
-import Game
 from pygame.locals import *
 
 class drawBoard:
     def __init__(self, board, windowSize):
         #Eventually change tile side length to board size and do appropriate math
         #and pull pygame init up into an encapsulating class that also draws hands etc
-        pygame.init()
         self.board = board
         self.radius = board.radius
         self.tileSideLength = min(windowSize)//30
@@ -17,12 +14,6 @@ class drawBoard:
         for key in self.board.tiles:
             tile = self.board.tiles[key]
             self.drawTile(tile, boardCenter)
-        while True: #refactor into main game loop eventually
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit() 
-            pygame.display.update()
             
     def drawTile(self, tile, boardCenter):
         r, q = tile.coords
@@ -50,7 +41,6 @@ class drawBoard:
             rect = textSurface.get_rect()
             rect.center = center
             self.gameSurface.blit(textSurface, rect)
-
         
 
 class hexagonMath:
@@ -70,6 +60,3 @@ class hexagonMath:
     def calculateCenterFromHexCoords(self, r, q, sideLength, boardCenter):
         x, y = q*2*sideLength + math.cos(math.radians(60))*r*2*sideLength + boardCenter[0],  -math.sin(math.radians(60))*r*2*sideLength + boardCenter[1]
         return (x,y)
-        
-thisGame = Game.Game()
-drawer = drawBoard(thisGame.board, (800, 1000))
